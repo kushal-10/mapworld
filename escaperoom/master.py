@@ -15,23 +15,23 @@ import logging
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("escaperoom.master")
 
-class Hunt(Player):
+class Player1(Player):
     def __init__(self, model: Model):
         super().__init__(model)
 
         self.response: str = ""
 
     def _custom_response(self, context: Dict) -> str:
-        return "HALLO!"
+        return "Test1!"
     
-class Benji(Player):
+class Player2(Player):
     def __init__(self, model: Model):
         super().__init__(model)
 
         self.response: str = ""
 
     def _custom_response(self, context: Dict) -> str:
-        return "SERVUS!"
+        return "Test2!"
 
 class EscapeRoom(DialogueGameMaster):
 
@@ -39,15 +39,15 @@ class EscapeRoom(DialogueGameMaster):
         super().__init__(name, path, experiment, player_models)
 
         self.experiment: str = experiment["name"]
-        self.hunt_prompt: str = self.game_instance["hunt_prompt"]
-        self.benji_prompt: str = self.game_instance["benji_prompt"]
+        self.player1_prompt: str = self.game_instance["player1_prompt"]
+        self.player2_prompt: str = self.game_instance["player2_prompt"]
 
 
-        self.hunt = Hunt(self.player_models[0])
-        self.benji = Benji(self.player_models[1])
+        self.player1 = Player1(self.player_models[0])
+        self.player2 = Player2(self.player_models[1])
 
 
     def _on_before_game(self):
-        self.set_context_for(self.hunt, self.hunt_prompt, {'image': "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/street/ADE_train_00016858.jpg"})
+        self.set_context_for(self.player1, self.player1_prompt, {'image': "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/street/ADE_train_00016858.jpg"})
 
-        
+    
