@@ -48,6 +48,17 @@ class EscapeRoom(DialogueGameMaster):
 
 
     def _on_before_game(self):
-        self.set_context_for(self.player1, self.player1_prompt, {'image': "https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/street/ADE_train_00016858.jpg"})
+        self.set_context_for(self.player2, self.player2_prompt, image=["https://www.ling.uni-potsdam.de/clembench/adk/images/ADE/training/urban/casino__outdoor/ADE_train_00005212.jpg"])
 
-    
+    def _does_game_proceed(self) -> bool:
+        if self.aborted:
+            self.log_to_self("Game over", "Aborted")
+            return False
+        elif self.final_decision: # Maybe replace with self.decision with options for suggestion/description/escape
+            return False
+        else:
+            return True
+
+
+if __name__ == '__main__':
+    print("Hello")
